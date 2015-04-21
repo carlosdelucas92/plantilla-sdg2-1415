@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include "temporizacion.h"
-
+//#include "menus.h"
 
 //------------------------------------------------------------------------------
 // ZONA DE DEFINICIÓN DE ESTRUCTURAS Y VARIABLES
@@ -201,6 +201,7 @@ void rutina_tout0(void)
 	ULONG aux_dft_mod2 = 0;
 
 	int muestra = 0;
+	int muestra2;
 
 	UBYTE  f = 0;
 
@@ -214,8 +215,39 @@ void rutina_tout0(void)
 		Pulso_ON = FALSE;
 	}
 
+	// Mejora: Mezclador.
+  	// muestra vendrá de una entrada o de otra según nuestra elección en el menú.
+
+  	if (entradasMezcladas == 0) {
+    	//Si no hemos escogido usar el mezclador.
+
+    	if (entradaUno == 1) {
+      	//Entrada 1.
+      	ENTRADA_ADC = 0x97;
+	    } else {
+	      //Entrada 2.
+	      ENTRADA_ADC = 0xD7;
+	    }
+
+	    muestra = ADC_dato();
+
+	  } else {
+	    // En el caso de que hayamos escogido usar el Mezclador.
+
+	    ENTRADA_ADC = 0xD7;
+	    muestra2 = ADC_dato();
+	    ENTRADA_ADC = 0x97;
+	    muestra = ADC_dato();
+
+	    // Hacemos la media de ambas.
+
+	    muestra += muestra2;
+	    muestra /= 2;
+
+	  }
+
 	// LEEMOS DATO DEL ADC
-	muestra = ADC_dato();
+	//muestra = ADC_dato();
 
 	// 
 	for (f = 0; f < N_FRECS; f++)

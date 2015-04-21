@@ -35,6 +35,8 @@
 // MACRO: QSPI_finTx - Devuelve '1' cuando ha terminado la transmisión del QSPI
 #define QSPI_finTx 	(mbar_readShort(MCFSIM_QIR) & QIR_SPIF_MASK)
 
+UWORD ENTRADA_ADC = 0x97;
+
 //------------------------------------------------------------------  
 //                      CONFIGURACIÓN DEL QSPI
 //------------------------------------------------------------------  
