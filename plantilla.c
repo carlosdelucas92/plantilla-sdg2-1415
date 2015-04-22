@@ -13,6 +13,7 @@
 #include "printf.h"
 #include "m5272adc_dac.h"
 #include "temporizacion.h"
+#include "menus.h"
 
 #define MUESTRA_CADA_CIEN 100
 
@@ -62,6 +63,28 @@ void bucleMain(void)
 
 	int f = 0;
 
+	//Opciones de la interfaz del usuario
+  	switch(opcion) {
+      case 0:
+        MenuPrincipal();
+        break;
+      case 1:
+        //CONFIGURAR POR TECLADO
+        break;
+      case 2:
+	    //LCD 
+	    break;
+      case 3:
+        mezclarEntradas();     
+	    break;
+      default:
+        _printf("\n --- Opción elegida érronea. Vuelva a intentarlo. --- \n\n");
+        break;
+    }
+
+
+	
+
 	if (flag >= MUESTRA_CADA_CIEN)
 	{
 		_printf("f (Hz)\t ");
@@ -87,5 +110,6 @@ void bucleMain(void)
 #include "printf.c"
 #include "m5272adc_dac.c"
 #include "temporizacion.c"
+#include "menus.c"
 
 
