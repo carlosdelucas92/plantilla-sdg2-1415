@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------
 // temporizacion.c
 //
-//  Descripción: Este módulo permite la inicialización, configuración y control
-//               de las interrupciones del módulo básico del proyecto.
+//  DescripciÃ³n: Este mÃ³dulo permite la inicializaciÃ³n, configuraciÃ³n y control
+//               de las interrupciones del mÃ³dulo bÃ¡sico del proyecto.
 //
 // Autores: Equipo docente de SDII
 //------------------------------------------------------------------------------
@@ -11,7 +11,7 @@
 //#include "menus.h"
 
 //------------------------------------------------------------------------------
-// ZONA DE DEFINICIÓN DE ESTRUCTURAS Y VARIABLES
+// ZONA DE DEFINICIÃ“N DE ESTRUCTURAS Y VARIABLES
 //------------------------------------------------------------------------------
 
 int dft_sin[N_FRECS];
@@ -23,14 +23,14 @@ static int sin10[NUM_MUESTRAS_SIN10] = {0, 12, 25, 38, 51, 64, 77, 89, 102, 115,
 static int paso_frecs[N_FRECS] =  {5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,180, 190};
 
 //------------------------------------------------------------------------------
-// ZONA DE IMPLEMENTACIÓN DE FUNCIONES
+// ZONA DE IMPLEMENTACIÃ“N DE FUNCIONES
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // void timers_init(void)
 //
-// Descripción:
-//   Función de inicialización del TIMER0
+// DescripciÃ³n:
+//   FunciÃ³n de inicializaciÃ³n del TIMER0
 //
 //  Argumentos de Entrada: VOID
 //  Argumentos de Salida: VOID
@@ -39,9 +39,9 @@ static int paso_frecs[N_FRECS] =  {5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 1
 //------------------------------------------------------------------------------
 void timers_init (void)
 {
-	mbar_writeByte(MCFSIM_PIVR,V_BASE);			   // Fija comienzo de vectores de interrupción en V_BASE.
+	mbar_writeByte(MCFSIM_PIVR,V_BASE);			   // Fija comienzo de vectores de interrupciÃ³n en V_BASE.
 
-	ACCESO_A_MEMORIA_LONG(DIR_VTMR0)= (ULONG)_prep_TOUT0;      // Escribimos la dirección de la función para TMR0
+	ACCESO_A_MEMORIA_LONG(DIR_VTMR0)= (ULONG)_prep_TOUT0;      // Escribimos la direcciÃ³n de la funciÃ³n para TMR0
 	mbar_writeShort(MCFSIM_TMR0, (PRESCALADO_TMR0-1)<<8|0x3D); // TMR0: PS=1-1=0 CE=00 OM=1 ORI=1 FRR=1 CLK=10 RST=1
 	mbar_writeShort(MCFSIM_TCN0, 0x0000);		           // Ponemos a 0 el contador del TIMER0
 	mbar_writeShort(MCFSIM_TRR0, CNT_INT0);	                   // Fijamos la cuenta final del contador
@@ -51,11 +51,11 @@ void timers_init (void)
 //------------------------------------------------------------------------------
 // void setICR1(void)
 //
-//  Descripción: Actualiza el vector ICR1 a 0x8888CB88, donde se marcan como no
+//  DescripciÃ³n: Actualiza el vector ICR1 a 0x8888CB88, donde se marcan como no
 //               pendientes las interrupciones TIMER0 TIMER1 y se establecen
 //				 sus prioridades como 4 y 3 respectivamente.
 //               Fijamos mayor prioridad al TIMER 0 para que podamos emplear el
-//               DAC respetando la temporización.
+//               DAC respetando la temporizaciÃ³n.
 //
 //  Argumentos de Entrada: VOID
 //  Argumentos de Salida: VOID
@@ -70,8 +70,8 @@ void ICR1_set(void)
 //------------------------------------------------------------------------------
 // void DFT_init(void)
 //
-// Descripción:
-//   Función de inicialización de los recursos empleados en la estimación de
+// DescripciÃ³n:
+//   FunciÃ³n de inicializaciÃ³n de los recursos empleados en la estimaciÃ³n de
 //   la DFT.
 //
 //  Argumentos de Entrada: VOID
@@ -79,6 +79,25 @@ void ICR1_set(void)
 //
 // Autores: Equipo docente de SDII
 //------------------------------------------------------------------------------
+
+void afinainstrumentos (aux_dft_mod2){
+	int i;
+	int frecmax;
+	int dftmax;
+	dftmax=aux_dft_mod2[0];
+	for (i=0;i<N_FRECS;i++){
+		if (aux_dft_mod2[i]>dftmax){
+			dftmax=aux_dft_mod2[i];
+			frecmax=paso_frecs[i]*10;
+		}
+	}
+	
+	//sacar por pantalla dftmax y frecmax
+}
+
+void calculaF0(){
+	
+}
 void DFT_init (void)
 {
 	int f = 0; 
@@ -94,7 +113,7 @@ void DFT_init (void)
 //------------------------------------------------------------------------------
 // void ActualizaPunterosABases(int frec)
 //
-//  Descripción: Actualiza los punteros pSin[frec] y pCos[frec] a la dirección
+//  DescripciÃ³n: Actualiza los punteros pSin[frec] y pCos[frec] a la direcciÃ³n
 //               de la siguiente muestra del seno de 10Hz (sin10) que se debe 
 //               emplear para la frecuencia frec.
 //
@@ -123,10 +142,10 @@ inline void ActualizaPunterosABases(int frec)
 //------------------------------------------------------------------------------
 // inline ULONG EstimaDFTModulo2 (int dft_sin, int dft_cos)
 //
-//  Descripción: 
+//  DescripciÃ³n: 
 //
 //  Argumentos de Entrada: dft_sin, dft_cos (acumuladores partes real e imaginaria)
-//  Argumentos de Salida:  Módulo al cuadrado de la DFT 
+//  Argumentos de Salida:  MÃ³dulo al cuadrado de la DFT 
 //
 // Autores: Equipo docente de SDII
 //------------------------------------------------------------------------------
@@ -142,10 +161,10 @@ inline ULONG EstimaDFTModulo2 (int dft_sin, int dft_cos)
 //------------------------------------------------------------------------------
 // inline int ConversionAdB (int dft_mod2)
 //
-//  Descripción: 
+//  DescripciÃ³n: 
 //
-//  Argumentos de Entrada: dft_mod2 (módulo^2 de la DFT en natural
-//  Argumentos de Salida:  Módulo de la DFT proporcional a dB (en escala del DAC)
+//  Argumentos de Entrada: dft_mod2 (mÃ³dulo^2 de la DFT en natural
+//  Argumentos de Salida:  MÃ³dulo de la DFT proporcional a dB (en escala del DAC)
 //
 // Autores: Equipo docente de SDII
 //------------------------------------------------------------------------------
@@ -183,8 +202,8 @@ inline int ConversionAdB (int dft_mod2)
 //------------------------------------------------------------------------------
 // void rutina_tout0(void)
 //
-// Descripción: Función de atención a la interrupción interna TOUT0.
-//              Esta función toma una muestra cada 125us (8kHz)
+// DescripciÃ³n: FunciÃ³n de atenciÃ³n a la interrupciÃ³n interna TOUT0.
+//              Esta funciÃ³n toma una muestra cada 125us (8kHz)
 //
 //  Argumentos de Entrada: VOID
 //  Argumentos de Salida: VOID
@@ -216,7 +235,7 @@ void rutina_tout0(void)
 	}
 
 	// Mejora: Mezclador.
-  	// muestra vendrá de una entrada o de otra según nuestra elección en el menú.
+  	// muestra vendrÃ¡ de una entrada o de otra segÃºn nuestra elecciÃ³n en el menÃº.
 
   	if (entradasMezcladas == 0) {
     	//Si no hemos escogido usar el mezclador.
@@ -260,15 +279,15 @@ void rutina_tout0(void)
 		ActualizaPunterosABases(f);
 	} //for f
 
-	// SI SE HAN PROCESADO N MUESTRAS, SE ESTIMA EL MóDULO^2 Y CONVERTIMOS a DB
+	// SI SE HAN PROCESADO N MUESTRAS, SE ESTIMA EL MÃ³DULO^2 Y CONVERTIMOS a DB
 	if (n >= N)
 	{
 		for (f = 0; f < N_FRECS; f++)
 		{
-			// SE ESTIMA EL MÓDULO AL CUADRADO DE LA DFT
+			// SE ESTIMA EL MÃ“DULO AL CUADRADO DE LA DFT
 			aux_dft_mod2  = EstimaDFTModulo2(dft_sin[f], dft_cos[f]);
 
-			// CONVIERTE EL MÓDULO AL CUADRADO AL MÓDULO EN dB 
+			// CONVIERTE EL MÃ“DULO AL CUADRADO AL MÃ“DULO EN dB 
 			dft_mod_DB[f] = ConversionAdB (aux_dft_mod2);
 
 			// RESET ACUMULADORES DFT
@@ -279,7 +298,7 @@ void rutina_tout0(void)
 			pCos[f]  = sin10 + COS_BIAS;
 		}
 
-		n = 0;  // RESET DE VENTANA DE ANÁLISIS DE LA DFT
+		n = 0;  // RESET DE VENTANA DE ANÃLISIS DE LA DFT
 		flag++; // INFORMAMOS A BUCLEMAIN PARA QUE MUESTRE POR LA PANTALLA DEL TERMINAL
 	}
 	else
@@ -297,7 +316,7 @@ void rutina_tout0(void)
 			Pulso_ON = TRUE;
 			set16_puertoS (0x0001);
 		}
-		// SE ENVÍA EL MOD DE LA SIGUIENTE FRECUENCIA A VISUALIZAR
+		// SE ENVÃA EL MOD DE LA SIGUIENTE FRECUENCIA A VISUALIZAR
 		DAC_dato (dft_mod_DB[OutFrec]);
 
 		OutFrec++;
@@ -312,8 +331,8 @@ void rutina_tout0(void)
 
 
 //----------------------------------------------------------------
-// Definición del resto de rutinas de atención a la interrupción
-// Es necesario definirlas aunque estén vacías
+// DefiniciÃ³n del resto de rutinas de atenciÃ³n a la interrupciÃ³n
+// Es necesario definirlas aunque estÃ©n vacÃ­as
 void rutina_int1(void){}
 void rutina_int2(void){}
 void rutina_int3(void){}
