@@ -70,6 +70,7 @@ void bucleMain(void)
         break;
       case 1:
         //CONFIGURAR POR TECLADO
+      	MenuConfiguracion();
         break;
       case 2:
 	    //LCD 
