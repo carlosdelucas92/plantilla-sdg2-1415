@@ -84,12 +84,17 @@ void afinainstrumentos (aux_dft_mod2){
 	int i;
 	int frecmax;
 	int dftmax;
+	int frecCentrales1[20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	dftmax=aux_dft_mod2[0];
 	for (i=0;i<N_FRECS;i++){
 		if (aux_dft_mod2[i]>dftmax){
 			dftmax=aux_dft_mod2[i];
 			frecmax=paso_frecs[i]*10;
 		}
+	}
+	for(i=0; i<N_FRECS;i++){
+		frecCentrales1[i]=frecmax-50+i*5;
+		paso_frecs[i]=frecCentales1[i]/10;
 	}
 	
 	//sacar por pantalla dftmax y frecmax
