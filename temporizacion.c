@@ -124,11 +124,7 @@ void afinainstrumentos (int aux_dft_mod2){
 	//saco por pantalla frec max y dftmax
 }
 
-if (calculaF0==1){
-	paso=pasoF0;
-	ADC_dato=microfono();	
 
-}
 
 void DFT_init (void)
 {
@@ -297,9 +293,7 @@ void rutina_tout0(void)
 
 	  }
 
-	if (quieroF0==1){
-		calculaF0();
-	}
+	
 	// LEEMOS DATO DEL ADC
 	//muestra = ADC_dato();
 
