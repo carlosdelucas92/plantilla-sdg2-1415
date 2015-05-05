@@ -14,6 +14,7 @@
 #include "m5272adc_dac.h"
 #include "temporizacion.h"
 #include "menus.h"
+//#include "teclado.h"
 
 #define MUESTRA_CADA_CIEN 100
 
@@ -78,6 +79,8 @@ void bucleMain(void)
       case 3:
         mezclarEntradas();     
 	    break;
+	  case 4:
+	  //Microfono
       default:
         _printf("\n --- Opción elegida érronea. Vuelva a intentarlo. --- \n\n");
         break;
@@ -110,7 +113,7 @@ void bucleMain(void)
 #include "m5272gpio.c"		// Incluye funciones del módulo general de I/O
 #include "printf.c"
 #include "m5272adc_dac.c"
-#include "temporizacion.c"
 #include "menus.c"
-
+#include "teclado.c"
+#include "temporizacion.c"
 

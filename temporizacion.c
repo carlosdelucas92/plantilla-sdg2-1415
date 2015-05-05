@@ -361,16 +361,7 @@ void rutina_tout0(void)
 
 } // end rutina_tout0 ()
 
-if (calculaF0==1){
-	int i;
-	//Estas no son un entero pero ya veré que hago con ellas
-	int j;
-	j=0;
-	for(i=0;i<N_FRECS;i++){
-		j+=dft_mod_DB[i]
-		
-	}
-}
+
 
 
 //----------------------------------------------------------------
