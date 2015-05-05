@@ -80,7 +80,7 @@ void ICR1_set(void)
 // Autores: Equipo docente de SDII
 //------------------------------------------------------------------------------
 
-void afinainstrumentos (aux_dft_mod2){
+void afinainstrumentos (int aux_dft_mod2){
 	int i; // variable auxialiar empleada para recorrer bucles en las exploraciones
 	int frecmax; //Frecuencia en la que se encuentra el valor max de la DFT en cada exploración
 	int dftmax; //Valor máximo de la DFT en cada exploración
