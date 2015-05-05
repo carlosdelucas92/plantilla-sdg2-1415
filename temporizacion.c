@@ -81,10 +81,25 @@ void ICR1_set(void)
 //------------------------------------------------------------------------------
 
 void afinainstrumentos (aux_dft_mod2){
-	int i;
-	int frecmax;
-	int dftmax;
-	int frecCentrales1[20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int i; // variable auxialiar empleada para recorrer bucles en las exploraciones
+	int frecmax; //Frecuencia en la que se encuentra el valor max de la DFT en cada exploración
+	int dftmax; //Valor máximo de la DFT en cada exploración
+	int frecCentrales1[20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //frecuencias en las que centras 2a exploración.
+	int frecCentrales2[20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //frecuencias en las que centras 3a exploración.
+	dftmax=aux_dft_mod2[0]; //inicializacion de dftmax
+	for (i=0;i<N_FRECS;i++){
+		if (aux_dft_mod2[i]>dftmax){
+			dftmax=aux_dft_mod2[i];
+			frecmax=paso_frecs[i]*10;
+		}
+	}
+	//saco por pantalla la 1a frec max y su valor de dft
+	for(i=0; i<N_FRECS;i++){
+		frecCentrales1[i]=frecmax-50+i*10;
+		paso_frecs[i]=frecCentales1[i]/10;
+	}
+	
+	rutina_tout0();
 	dftmax=aux_dft_mod2[0];
 	for (i=0;i<N_FRECS;i++){
 		if (aux_dft_mod2[i]>dftmax){
@@ -92,13 +107,23 @@ void afinainstrumentos (aux_dft_mod2){
 			frecmax=paso_frecs[i]*10;
 		}
 	}
-	for(i=0; i<N_FRECS;i++){
-		frecCentrales1[i]=frecmax-50+i*5;
+	//saco por pantalla frec max y dftmax
+	for(i=0; i<3;i++){
+		frecCentrales2[i]=frecmax-5+i*5;
 		paso_frecs[i]=frecCentales1[i]/10;
 	}
 	
-	//sacar por pantalla dftmax y frecmax
+	rutina_tout0();
+	dftmax=aux_dft_mod2[0];
+	for (i=0;i<3;i++){
+		if (aux_dft_mod2[i]>dftmax){
+			dftmax=aux_dft_mod2[i];
+			frecmax=paso_frecs[i]*10;
+		}
+	}
+	//saco por pantalla frec max y dftmax
 }
+
 if (calculaF0==1){
 	paso=pasoF0;
 	ADC_dato=microfono();	
