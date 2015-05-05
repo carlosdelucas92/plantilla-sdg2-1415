@@ -18,7 +18,7 @@
 #define DIR_VTMR0 4*(V_BASE+5) // Dirección del vector de TMR0
 #define DIR_VTMR1 4*(V_BASE+6) // Dirección del vector de TMR1
 
-#define FREC_INT0 4000      // Frec. de interr. TMR0 = 8000 Hz (125us)
+#define FREC_INT0 4000      // Frec. de interr. TMR0 = 4000 Hz (250us)
 
 #define PRESCALADO_TMR0 2
 #define CNT_INT0 MCF_CLK/(FREC_INT0 * PRESCALADO_TMR0 * 16)  // Valor de precarga del temporizador de interrupciones TRR0
